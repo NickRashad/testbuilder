@@ -22,8 +22,12 @@ var detectNetwork = function(cardNumber) {
   	return "MasterCard";
   } else if ([13,16,19].includes(len) && cardNumber.slice(0,1) === '4'){
   	return "Visa";
+  } else if ([16,17,18,19].includes(len) && (cardNumber.slice(0,4) === '6011' || ['644','645','646','647','648','649'].includes(cardNumber.slice(0,3)) || ['65'].includes(pre))){
+    return "Discover";
+  } else if (len >= 12 && len <= 19 && ['5018', '5020', '5038', '6304'].includes(cardNumber.slice(0,4))){
+    return "Maestro";
+  } else {
+    return 'CardNumber unsuccessful, Pre:' + pre + ' Len:' +len;
   }
   // Once you've read this, go ahead and try to implement this function, then return to the console.
 };
-
-console.log(detectNetwork('4123456789012'));
